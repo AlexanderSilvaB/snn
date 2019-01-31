@@ -23,7 +23,7 @@ int snn_init(snn_t *snn, int input_size, int output_size, int hidden_layers, int
     snn->input_size = input_size;
     snn->output_size = output_size;
     snn->act = snn_act_relu;
-    snn->act_deriv = snn_act_relu2deriv;
+    snn->act_deriv = snn_act_relu_deriv;
 
     snn->error = 0;
 
@@ -93,7 +93,7 @@ int snn_print(snn_t *snn)
     printf("Output size: %d\n", snn->output_size);
     printf("Hidden layers: %d\n", snn->hidden_layers);
     printf("Hidden layers size: %d\n", snn->hidden_layer_size);
-    printf("Alpha: %f\n", snn->alpha);
+    printf("Alpha: %g\n", snn->alpha);
     
     snn_print_weights(snn);
 }
@@ -228,7 +228,7 @@ int snn_train_epochs(snn_t *snn, int epochs, int block_size, int size, SNN_TYPE 
     {
         snn_train(snn, size, input, ouput);
         if(i % block_size == 0)
-            printf("Error: %f\n", snn->error);
+            printf("Error: %g\n", snn->error);
     }
 }
 
@@ -239,7 +239,7 @@ int snn_train_max_error_epochs(snn_t *snn, int epochs, SNN_TYPE max_error, int b
     {
         snn_train(snn, size, input, ouput);
         if(i % block_size == 0)
-            printf("Error: %f\n", snn->error);
+            printf("Error: %g\n", snn->error);
         if(snn->error < max_error)
             break;
     }

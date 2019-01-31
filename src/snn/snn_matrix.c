@@ -105,7 +105,7 @@ void snn_matrix_mult(snn_matrix_t *dst, snn_matrix_t *A, snn_matrix_t *B)
 	//printf("Block size: %d\n", SNN_MATRIX_BLK_SIZE);	
 	//printf("Unrolls: %d\n", uf);
 	
-	snn_matrix_set(dst, 0);
+	snn_matrix_set(dst, 0.0);
 	mxm(dst->data, A->data, B->data, m, n, p, uf); 	
 }
 

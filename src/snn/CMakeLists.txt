@@ -7,3 +7,4 @@ file(GLOB_RECURSE SRC
 include_directories(.)
 
 add_library(snn ${SRC})
+target_link_libraries(snn m)

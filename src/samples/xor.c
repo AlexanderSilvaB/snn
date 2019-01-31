@@ -5,35 +5,37 @@
 int main(int argc, char *argv[])
 {
     /*
-        Streetlights system
-        Type:
-            GREEN, YELLOW, RED (0 or 1)
-        Information:
-            Can walk(1), Stop(0)
+        XOR function
+        input | output
+        --------------
+        0, 0  | 0
+        0, 1  | 1
+        1, 0  | 1
+        1, 1  | 0
     */
 
     srand(1);
 
-    const int input_size = 3;
+    const int input_size = 2;
     const int output_size = 1;
     const int hidden_layers = 1;
     const int hidden_layer_size = 4;
 
     const int data_entries = 4;
 
-    SNN_TYPE input[4*3] = 
+    SNN_TYPE input[4*2] = 
     {
-        1, 0, 1,
-        0, 1, 1,
-        0, 0, 1,
-        1, 1, 1
+        0, 0,
+        0, 1,
+        1, 0,
+        1, 1
     };
 
     SNN_TYPE output[4*1] = 
     {
-        1,
-        1,
         0,
+        1,
+        1,
         0
     };
 
@@ -45,11 +47,13 @@ int main(int argc, char *argv[])
         return SNN_FAIL;
     }
 
-    snn_act(&snn, snn_act_relu);
-    snn_act_deriv(&snn, snn_act_relu_deriv);
+    snn.alpha = 0.2;
+
+    snn_act(&snn, snn_act_linear);
+    snn_act_deriv(&snn, snn_act_linear_deriv);
 
     printf("Training:\n");
-    snn_train_epochs(&snn, 60, 10, data_entries, input, output);
+    snn_train_epochs(&snn, 200, 50, data_entries, input, output);
     
     printf("Structure:\n");
     snn_print(&snn);

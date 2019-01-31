@@ -3,6 +3,7 @@
 
 #include "snn_config.h"
 #include "snn_types.h"
+#include "snn_act_funcs.h"
 
 int snn_init(snn_t *snn, int input_size, int output_size, int hidden_layers, int hidden_layer_size);
 int snn_destroy(snn_t *snn);
